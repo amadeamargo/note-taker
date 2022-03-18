@@ -18,7 +18,7 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/notes.html'));
 });
 
-app.get('api/notes', (req, res) => {
+app.get('/api/notes', (req, res) => {
     fs.readFile('db/db.json', 'utf8', (err, data) => {
         err ? console.error("Could not retrive notes") : res.json(JSON.parse(data))
     })
