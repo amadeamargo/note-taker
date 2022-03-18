@@ -24,6 +24,23 @@ app.get('/api/notes', (req, res) => {
     })
 })
 
+app.post('/api/notes', (req, res) => {
+    const title = req.body.title
+    const text = req.body.text
+    const newNote = {
+        title,
+        text,
+        id: uuidv4()
+    }
+    fs.readFile('db/db.json', 'utf8', (err, data) => {
+        const currentNote = JSON.parse(data)
+        currentNote.push(newNote)
+        fs.writeFile('db/db.json', JSON.stringify(currentNote), (err) => {
+            err ? console.error("Error") :console.log(`${newNote.title} successfully saved`)
+        })
+        res.sendFile(path.join(__dirname, 'public/notes.html'))
+    })
+})
 
 
 
